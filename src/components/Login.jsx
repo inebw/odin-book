@@ -7,7 +7,7 @@ export default function Login() {
     password: "",
   };
   const [formData, setFormData] = useState(initialValue);
-  const { url } = useOutletContext();
+  const { url, setRefreshUser } = useOutletContext();
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -27,6 +27,7 @@ export default function Login() {
       credentials: "include",
     });
     console.log(response.ok);
+    setRefreshUser((prev) => prev + 1);
   };
   return (
     <form

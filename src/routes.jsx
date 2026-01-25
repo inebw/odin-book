@@ -1,4 +1,5 @@
 import App from "./App";
+import Feed from "./components/Feed";
 import Login from "./components/Login";
 import Register from "./components/Register";
 
@@ -14,6 +15,10 @@ const routes = [
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "feed",
+        element: <Feed />,
       },
     ],
   },
