@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router";
 import useGetAuthUser from "./utils/useGetAuthUser";
+import { socket } from "./socket";
 import { useState } from "react";
 const url = "http://localhost:3000";
 
@@ -30,8 +31,11 @@ function App() {
         <button onClick={logout}>Logout</button>
         <button onClick={() => navigate("register")}>Register</button>
         <button onClick={() => navigate("feed")}>Feed</button>
+        <button onClick={() => navigate("create")}>Create</button>
+        <button onClick={() => navigate("profile")}>Profile</button>
+        <button onClick={() => navigate("find")}>Find People</button>
       </div>
-      <Outlet context={{ url, user, refreshUser, setRefreshUser }} />
+      <Outlet context={{ url, user, refreshUser, setRefreshUser, socket }} />
     </div>
   );
 }

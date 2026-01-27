@@ -1,9 +1,13 @@
 import { useOutletContext } from "react-router";
 import useGetConnections from "../utils/useGetConnections";
 
-export default function Followers() {
+export default function Following() {
   const { user, url } = useOutletContext();
-  const { connections, loading, error } = useGetConnections(url, user.id);
+  const { connections, loading, error } = useGetConnections(
+    url,
+    user.id,
+    "following",
+  );
 
   if (loading) return <p>Loading...</p>;
 
@@ -11,10 +15,10 @@ export default function Followers() {
 
   return (
     <div>
-      {connections.map((follower) => (
-        <div key={follower.id}>
+      {connections.map((connection) => (
+        <div key={connection.id}>
           <p>
-            {follower.first_name} {follower.last_name}
+            {connection.first_name} {connection.last_name}
           </p>
         </div>
       ))}

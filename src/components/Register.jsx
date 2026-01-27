@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useOutletContext } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router";
 
 export default function Register() {
   const initialValue = {
@@ -10,7 +10,12 @@ export default function Register() {
     confirm_password: "",
   };
   const [formData, setFormData] = useState(initialValue);
-  const { url } = useOutletContext();
+  const { url, user } = useOutletContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate("/feed");
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({

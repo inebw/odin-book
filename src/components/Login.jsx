@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useOutletContext } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router";
 
 export default function Login() {
   const initialValue = {
@@ -7,7 +7,12 @@ export default function Login() {
     password: "",
   };
   const [formData, setFormData] = useState(initialValue);
-  const { url, setRefreshUser } = useOutletContext();
+  const { url, setRefreshUser, user } = useOutletContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate("/feed");
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -26,9 +31,9 @@ export default function Login() {
       body: JSON.stringify(formData),
       credentials: "include",
     });
-    console.log(response.ok);
     setRefreshUser((prev) => prev + 1);
   };
+
   return (
     <form
       onSubmit={handleSubmit}
