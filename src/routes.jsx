@@ -1,4 +1,5 @@
 import App from "./App";
+import Chat from "./components/Chat";
 import CreatePost from "./components/CreatePost";
 import Feed from "./components/Feed";
 import Followers from "./components/Followers";
@@ -29,6 +30,10 @@ const routes = [
       {
         path: "create",
         element: <CreatePost />,
+      },
+      {
+        path: "chat",
+        element: <Chat />,
       },
       {
         path: "profile",

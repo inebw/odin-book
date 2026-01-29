@@ -1,1 +1,150 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-d1: #131316;
+  --color-d2: #1c1c21;
+  --color-d3: #26262c;
+  --color-d4: #2f3037;
+  --color-d5: #393a41;
+  --color-d6: #4b4c52;
+  --color-d7: #5b5c62;
+  --color-d8: #6a6b70f0;
+
+  --color-yello: #e3b261;
+  --color-green: #81b29a;
+  --color-input: #eae0d5;
+  --color-red: #ff6b6b;
+
+  --color-l1: #f5f4ef;
+  --color-l2: #edede9;
+  --color-l3: #f5f3f4;
+  --color-l4: #e3d5ca;
+  --color-l5: #d5bdaf;
+  /* --color-l6: #; */
+  /* --color-l7: #; */
+  /* --color-l8: #; */
+  /* --color-l9: #; */
+
+  --font-display: "Nunito";
+  --font-plaster: "Plaster";
+}
+.theme-toggle.theme-toggle--reversed .theme-toggle__expand {
+  transform: scale(-1, 1);
+}
+
+.theme-toggle {
+  --theme-toggle__expand--duration: 500ms;
+}
+.theme-toggle__expand g circle,
+.theme-toggle__expand g path {
+  fill: var(--primary-color);
+  transform-origin: center;
+  transition: transform calc(var(--theme-toggle__expand--duration) * 0.65)
+    cubic-bezier(0, 0, 0, 1.25)
+    calc(var(--theme-toggle__expand--duration) * 0.35);
+}
+.theme-toggle__expand :first-child path {
+  transition-property: transform, d;
+  transition-duration: calc(var(--theme-toggle__expand--duration) * 0.6);
+  transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
+}
+
+.theme-toggle--toggled:not(label).theme-toggle .theme-toggle__expand g circle,
+.theme-toggle input[type="checkbox"]:checked ~ .theme-toggle__expand g circle {
+  transform: scale(1.4);
+  transition-delay: 0s;
+}
+.theme-toggle--toggled:not(label).theme-toggle .theme-toggle__expand g path,
+.theme-toggle input[type="checkbox"]:checked ~ .theme-toggle__expand g path {
+  transform: scale(0.75);
+  transition-delay: 0s;
+}
+.theme-toggle--toggled:not(label).theme-toggle
+  .theme-toggle__expand
+  :first-child
+  path,
+.theme-toggle
+  input[type="checkbox"]:checked
+  ~ .theme-toggle__expand
+  :first-child
+  path {
+  d: path("M-9 3h25a1 1 0 0017 13v30H0Z");
+  transition-delay: calc(var(--theme-toggle__expand--duration) * 0.4);
+  transition-timing-function: cubic-bezier(0, 0, 0, 1.25);
+}
+
+@supports not (d: path("")) {
+  .theme-toggle--toggled:not(label).theme-toggle
+    .theme-toggle__expand
+    :first-child
+    path,
+  .theme-toggle
+    input[type="checkbox"]:checked
+    ~ .theme-toggle__expand
+    :first-child
+    path {
+    transform: translate3d(-9px, 14px, 0);
+  }
+}
+.theme-toggle {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.theme-toggle input[type="checkbox"] {
+  display: none;
+}
+.theme-toggle .theme-toggle-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.custom-scrollbar {
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+/* WebKit scrollbar size */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Remove arrows */
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Hide track/background */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Rounded thumb */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+
+  /* Keeps thumb nicely inset & rounded */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Hover state (optional) */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+}

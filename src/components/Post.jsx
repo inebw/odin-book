@@ -15,11 +15,12 @@ export default function Post({ post, socket, userId, id }) {
   };
 
   return (
-    <div>
+    <div className="">
       <p>
         {post.user.first_name} {post.user.last_name}
       </p>
       <p>{post.content}</p>
+      <img src={post.img_url} alt="" />
       <div onClick={() => navigate(`/post/${post.id}`)}>
         <div>
           <button onClick={() => likePost(post.id, id)}>Like</button>

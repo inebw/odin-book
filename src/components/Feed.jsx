@@ -18,20 +18,22 @@ export default function Feed() {
   if (error) return <p>{error.message}</p>;
 
   return (
-    <div>
-      <div>
-        <button onClick={() => setId(user.id)}>Subscription</button>
-        <button onClick={() => setId(null)}>Trending</button>
+    user && (
+      <div className="flex flex-col gap-5 bg-l2 dark:bg-d2 overflow-y-auto flex-1 rounded-md custom-scrollbar">
+        <div>
+          <button onClick={() => setId(user.id)}>Subscription</button>
+          <button onClick={() => setId(null)}>Trending</button>
+        </div>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            post={post}
+            socket={socket}
+            id={id}
+            userId={user.id}
+          />
+        ))}
       </div>
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          post={post}
-          socket={socket}
-          id={id}
-          userId={user.id}
-        />
-      ))}
-    </div>
+    )
   );
 }
