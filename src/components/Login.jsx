@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
+import Loader from "./Loader";
+import Errors from "./Errors";
 
 export default function Login() {
   const initialValue = {
@@ -7,6 +9,8 @@ export default function Login() {
     password: "",
   };
   const [formData, setFormData] = useState(initialValue);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { url, setRefreshUser, user } = useOutletContext();
   const navigate = useNavigate();
 
@@ -23,6 +27,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const response = await fetch(`${url}/login`, {
       method: "POST",
       headers: {
@@ -31,8 +36,15 @@ export default function Login() {
       body: JSON.stringify(formData),
       credentials: "include",
     });
+    if (!response.ok) {
+      const errors = await response.json();
+      setError(errors);
+      setLoading(false);
+    }
     setRefreshUser((prev) => prev + 1);
   };
+
+  if (loading) return <Loader className={"login-loader"} />;
 
   return (
     <form
@@ -64,6 +76,7 @@ export default function Login() {
           required
         />
       </label>
+      {error && <Errors error={error} />}
 
       <button
         type="submit"

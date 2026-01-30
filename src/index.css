@@ -13,8 +13,12 @@
 
   --color-yello: #e3b261;
   --color-green: #81b29a;
+  --color-cyan: #e07a5f;
   --color-input: #eae0d5;
   --color-red: #ff6b6b;
+  --color-redt: #ff6b6bd0;
+
+  --color-d3o: #26262c79;
 
   --color-l1: #f5f4ef;
   --color-l2: #edede9;
@@ -28,6 +32,7 @@
 
   --font-display: "Nunito";
   --font-plaster: "Plaster";
+  --font-scp: "Source Code Pro";
 }
 .theme-toggle.theme-toggle--reversed .theme-toggle__expand {
   transform: scale(-1, 1);
@@ -147,4 +152,75 @@
 /* Hover state (optional) */
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* HTML: <div class="loader"></div> */
+.register-loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+}
+.register-loader:before,
+.register-loader:after {
+  content: "";
+  grid-area: 1/1;
+  border-radius: 50%;
+  background: #f03355;
+  -webkit-mask: repeating-linear-gradient(#000 0 10px, #0000 0 20px);
+}
+.register-loader:after {
+  -webkit-mask: repeating-linear-gradient(#0000 0 10px, #000 0 20px);
+  animation: l36 1.5s infinite;
+}
+@keyframes l36 {
+  0%,
+  10% {
+    transform: rotate(0) translate(0);
+  }
+  35% {
+    transform: rotate(0) translate(100%);
+  }
+  66% {
+    transform: rotate(180deg) translate(100%);
+  }
+  90%,
+  100% {
+    transform: rotate(180deg) translate(0);
+  }
+}
+
+/* HTML: <div class="login-loader"></div> */
+.login-loader {
+  width: 40px;
+  aspect-ratio: 1;
+  display: grid;
+}
+.login-loader:before,
+.login-loader:after {
+  content: "";
+  background: orange;
+  transform-origin: left;
+  animation: l24 2s infinite;
+}
+.login-loader:before {
+  transform-origin: right;
+  --s: -1;
+}
+@keyframes l24 {
+  0%,
+  10% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(calc(var(--s, 1) * 50%), 0) scale(1);
+  }
+  66% {
+    transform: translate(calc(var(--s, 1) * 50%), calc(var(--s, 1) * -50%))
+      scale(1);
+  }
+  90%,
+  100% {
+    transform: translate(calc(var(--s, 1) * 50%), calc(var(--s, 1) * -50%))
+      scale(0.5, 2);
+  }
 }

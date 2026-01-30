@@ -14,10 +14,10 @@ export default function ToggleSidebar({ sidebarToggle, sidebarOn }) {
         rel="noopener noreferrer"
         className={sidebarOn ? "" : "hidden"}
       >
-        <GithubIcon className={"size-6 fill-d1 dark:fill-l1"} />
+        <GithubIcon className={"size-6 fill-d7 dark:fill-l1"} />
       </a>
       <button onClick={sidebarToggle} className="cursor-pointer">
-        <SideBar className={"size-6 fill-d1 dark:fill-l1"} />
+        <SideBar className={"size-6 fill-d7 dark:fill-l1"} />
       </button>
     </div>
   );

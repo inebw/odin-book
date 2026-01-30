@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import thumbnail from "./../assets/thumbnail.png";
+import Errors from "./Errors";
+import SuccessRegister from "./SucessRegister";
+import Loader from "./Loader";
 
-export default function Register() {
+export default function Register({}) {
   const initialValue = {
     first_name: "",
     last_name: "",
@@ -13,6 +16,9 @@ export default function Register() {
   const [formData, setFormData] = useState(initialValue);
   const [dpImg, setDpImg] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
   const { url, user } = useOutletContext();
   const navigate = useNavigate();
 
@@ -60,6 +66,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const dp = await getFileLink();
     const response = await fetch(`${url}/register`, {
       method: "POST",
@@ -69,8 +76,20 @@ export default function Register() {
       body: JSON.stringify({ ...formData, dp }),
       credentials: "include",
     });
-    console.log(response.ok);
+    if (!response.ok) {
+      const errors = await response.json();
+      console.log(errors);
+      setError(errors);
+    } else {
+      const sucessMsg = await response.json();
+      setSuccess(sucessMsg);
+    }
+    setLoading(false);
   };
+
+  if (loading) return <Loader className={"register-loader"} />;
+
+  if (success) return <SuccessRegister success={success} />;
 
   return (
     <form
@@ -163,6 +182,7 @@ export default function Register() {
           required
         />
       </label>
+      {error && <Errors error={error} />}
       <button
         type="submit"
         className="w-min bg-green font-bold px-5 py-2 rounded-md cursor-pointer active:translate-y-0.5"

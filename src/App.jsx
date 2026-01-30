@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router";
+import { Outlet } from "react-router";
 import useGetAuthUser from "./utils/useGetAuthUser";
 import { socket } from "./socket";
 import { useState } from "react";
@@ -8,7 +8,6 @@ const url = "http://localhost:3000";
 
 function App() {
   const [theme, setTheme] = useState("dark");
-  const navigate = useNavigate();
   const [refreshUser, setRefreshUser] = useState(0);
   const { user, loading, error } = useGetAuthUser(url, refreshUser, socket);
 
@@ -33,7 +32,7 @@ function App() {
 
   return (
     <div
-      className={`${theme} flex flex-col gap-3 bg-l1 dark:bg-d1 text-d1 dark:text-l1 min-h-dvh max-h-dvh lg:px-[calc(25%-10rem)] lg:py-5`}
+      className={`${theme} flex flex-col gap-3 bg-l1 dark:bg-d1 text-d7 dark:text-l1 min-h-dvh max-h-dvh lg:px-[calc(25%-10rem)] lg:py-5`}
     >
       <Header
         logoutHandler={logout}

@@ -47,21 +47,21 @@ export default function Nav({ user }) {
         className={`${location.pathname === "/feed" ? "bg-yello" : "bg-l3 dark:bg-d3"} flex gap-3 items-center justify-center sm:justify-start cursor-pointer p-2 ${sidebarOn ? "px-5" : ""} sm:rounded-md font-bold w-full`}
         onClick={() => navigate("feed")}
       >
-        <HomeIcon className={"size-6 fill-d1 dark:fill-l1"} />
+        <HomeIcon className={"size-6 fill-d7 dark:fill-l1"} />
         <p className={`${sidebarOn ? "sm:block" : ""} hidden`}>Home</p>
       </button>
       <button
         className={`${location.pathname === "/create" ? "bg-yello" : "bg-l3 dark:bg-d3"} flex gap-3 items-center justify-center sm:justify-start cursor-pointer p-2 ${sidebarOn ? "px-5" : ""} sm:rounded-md font-bold w-full`}
         onClick={() => navigate("create")}
       >
-        <CreateIcon className={"size-6 fill-d1 dark:fill-l1"} />
+        <CreateIcon className={"size-6 fill-d7 dark:fill-l1"} />
         <p className={`${sidebarOn ? "sm:block" : ""} hidden`}>New Post</p>
       </button>
       <button
         className={`${location.pathname === "/chat" ? "bg-yello" : "bg-l3 dark:bg-d3"} flex gap-3 items-center justify-center sm:justify-start cursor-pointer p-2 ${sidebarOn ? "px-5" : ""} sm:rounded-md font-bold w-full`}
         onClick={() => navigate("chat")}
       >
-        <ChatIcon className={"size-6 fill-d1 dark:fill-l1"} />
+        <ChatIcon className={"size-6 fill-d7 dark:fill-l1"} />
         <p className={`${sidebarOn ? "sm:block" : ""} hidden`}>Chat</p>
       </button>
       <ToggleSidebar sidebarOn={sidebarOn} sidebarToggle={sidebarToggle} />

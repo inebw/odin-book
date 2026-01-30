@@ -6,6 +6,7 @@ export default function useGetPosts(url, id = null, socket) {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     const fetchposts = async () => {
       try {
         console.log("hin");
