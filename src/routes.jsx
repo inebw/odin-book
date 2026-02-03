@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Register from "./components/Register";
 import SearchPeople from "./components/SearchPeople";
+import UserPosts from "./components/UserPosts";
 
 const routes = [
   {
@@ -36,17 +37,25 @@ const routes = [
         element: <Chat />,
       },
       {
-        path: "profile",
+        path: "profile/:username",
         element: <Profile />,
+        children: [
+          {
+            index: true,
+            element: <UserPosts />
+          },
+          {
+            path: 'followers',
+            element: <Followers />
+          },
+          {
+            path: 'following',
+            element: <Following />
+          }
+        ]
       },
-      {
-        path: "followers",
-        element: <Followers />,
-      },
-      {
-        path: "following",
-        element: <Following />,
-      },
+      ,
+      ,
       {
         path: "find",
         element: <SearchPeople />,

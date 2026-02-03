@@ -9,6 +9,8 @@ export default function CreatePost() {
   const [dpImg, setDpImg] = useState(null);
   const { url, user } = useOutletContext();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     if (!user) navigate("/login");
@@ -47,17 +49,34 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const img_url = await getFileLink();
-    const response = await fetch(`${url}/post/${user.id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content, img_url }),
-      credentials: "include",
-    });
-    console.log(response.ok);
+    setLoading(true)
+    try {
+
+      let img_url = ""
+      if (preview) img_url = await getFileLink();
+      const response = await fetch(`${url}/post/${user.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content, img_url }),
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Server Error")
+
+      const data = await response.json()
+      navigate(`/post/${data.id}`)
+
+    } catch (err) {
+      setError(err)
+    } finally {
+      setLoading(false)
+    }
   };
+
+  if (loading) return <p>Loading...</p>
+
+  if (error) return <p>{error.message}</p>
 
   return (
     <div className="flex flex-col gap-5 p-2 sm:px-8 sm:py-5 bg-l2 dark:bg-d2 overflow-y-auto flex-1 rounded-md custom-scrollbar">

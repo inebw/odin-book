@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
-export default function useGetConnections(url, id = null, type = "followers") {
+export default function useGetUserByUsername(url, username) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [connections, setConnections] = useState(null);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    const fetchConnections = async () => {
+    const fetchProfile = async () => {
       try {
-        const response = await fetch(`${url}/user/${type}/${id ? id : ""}`, {
+        const response = await fetch(`${url}/user/username/${username}`, {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
@@ -16,16 +16,16 @@ export default function useGetConnections(url, id = null, type = "followers") {
         });
         if (!response.ok) throw new Error("Server Error!");
         const data = await response.json();
-        setConnections(data);
+        setProfile(data);
       } catch (err) {
         setError(err);
-        setConnections(null);
+        setProfile(null);
       } finally {
         setLoading(false);
       }
     };
-    fetchConnections();
-  }, [id]);
+    fetchProfile();
+  }, [username]);
 
-  return { connections, loading, error };
+  return { profile, loading, error };
 }

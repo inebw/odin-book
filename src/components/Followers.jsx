@@ -1,23 +1,26 @@
 import { useOutletContext } from "react-router";
 import useGetConnections from "../utils/useGetConnections";
+import useGetLiveUser from "../utils/useGetLiveUser";
+import ConnectionManager from "./ConnectionManager";
 
 export default function Followers() {
-  const { user, url } = useOutletContext();
-  const { connections, loading, error } = useGetConnections(url, user.id);
+  const { user, url, profile, socket } = useOutletContext();
+  const { connections, loading, error } = useGetConnections(url, profile.id);
+  const liveUser = useGetLiveUser(user.id, socket).liveUser
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || !liveUser) return <p>Loading...</p>;
 
   if (error) return <p>{error.message}</p>;
-
   return (
-    <div>
-      {connections.map((follower) => (
-        <div key={follower.id}>
-          <p>
-            {follower.first_name} {follower.last_name}
-          </p>
-        </div>
-      ))}
+    <div className="border-d3 border rounded-md p-2 pb-18 sm:pb-28 lg:pb-40 ">
+      <h2>Followers</h2>
+      <div className="flex flex-col gap-3 p-1 sm:p-5 ">
+        {connections.map((connection) => (
+          <ConnectionManager key={connection.id} user={user} connection={connection} socket={socket} url={url}
+            isSelf={connection.id === user.id}
+            userFollows={liveUser.following.map(user => user.id).includes(connection.id)} />
+        ))}
+      </div>
     </div>
   );
 }

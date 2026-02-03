@@ -1,14 +1,19 @@
+import { useNavigate } from "react-router";
+
 export default function ProfileHeader({
   user,
   showOnline = false,
   className = null,
+  clickEnabled = null
 }) {
+  const navigate = useNavigate()
   return (
     <div
+      onClick={() => clickEnabled ? navigate(`/profile/${user.username}`) : null}
       className={
         className
           ? className
-          : "flex items-center w-max py-1 px-2 gap-2 rounded-md bg-l4 dark:bg-d4"
+          : "flex items-center w-max py-1 px-2 gap-2 rounded-md bg-l4 dark:bg-d4 cursor-pointer"
       }
     >
       <img

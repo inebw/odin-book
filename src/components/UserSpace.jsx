@@ -26,7 +26,7 @@ export default function UserSpace({ user, logoutHandler }) {
           className={`${isHidden ? "hidden" : ""} flex flex-col items-baseline min-w-full gap-3 absolute bottom-0 right-0 translate-y-[105%] bg-l4 dark:bg-d4 rounded-md py-2 px-3`}
         >
           <button
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate(`/profile/${user.username}`)}
             className="opacity-60 hover:opacity-100 transition-opacity delay-150 cursor-pointer flex gap-2 items-center"
           >
             <ProfileIcon className={"size-5 fill-d1 dark:fill-l1"} />
