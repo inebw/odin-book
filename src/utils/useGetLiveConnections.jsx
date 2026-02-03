@@ -6,10 +6,12 @@ export default function useGetLiveConnections(socket, userId) {
   const [connections, setConnections] = useState(null);
 
   useEffect(() => {
-    console.log("useGetLiveConnections");
     const fetchConnections = async () => {
       try {
         socket.emit("getConnections", userId);
+        socket.on("updateUsers", (data) => {
+          socket.emit("getConnections", userId);
+        });
         socket.on("receiveConnections", (data) => {
           setConnections(data);
           setLoading(false);

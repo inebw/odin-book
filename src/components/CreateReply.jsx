@@ -15,6 +15,7 @@ export default function CreateReply({
     socket.emit("createReply", { commentId, userId, content }, () => {
       socket.emit("getComments", postId);
     });
+    setContent("");
   };
   return (
     <form

@@ -13,7 +13,8 @@
 
   --color-yello: #e3b261;
   --color-green: #81b29a;
-  --color-cyan: #e07a5f;
+  --color-dgreen: #2afc98;
+  --color-orange: #e07a5f;
   --color-input: #eae0d5;
   --color-red: #ff6b6b;
   --color-redt: #ff6b6bd0;
@@ -223,4 +224,8 @@
     transform: translate(calc(var(--s, 1) * 50%), calc(var(--s, 1) * -50%))
       scale(0.5, 2);
   }
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }

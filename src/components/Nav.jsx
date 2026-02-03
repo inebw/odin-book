@@ -40,7 +40,7 @@ export default function Nav({ user }) {
   return (
     <div
       className={
-        "flex sm:flex-col gap-2 sm:gap-5 bg-l2 dark:bg-d2 sm:rounded-md sm:p-2 sm:items-baseline relative"
+        "flex sm:flex-col gap-2 sm:gap-5 bg-l2 dark:bg-d2 sm:rounded-md sm:p-2 relative"
       }
     >
       <button

@@ -6,7 +6,6 @@ export default function useGetLiveUser(userId, socket) {
   const [liveUser, setLiveUser] = useState(null);
 
   useEffect(() => {
-    console.log("useGetLiveUser");
     const fetchUser = async () => {
       try {
         socket.emit("getUser", userId);

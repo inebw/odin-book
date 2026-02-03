@@ -40,6 +40,7 @@ export default function Reply({
             socket={socket}
             reply={reply}
             postId={postId}
+            commentId={commentId}
             userId={userId}
             userLikes={reply.likes.map((like) => like.id).includes(userId)}
             userDislikes={reply.dislikes

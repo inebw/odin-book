@@ -18,17 +18,20 @@ export default function Chat() {
 
   return (
     user && (
-      <div className="flex gap-4">
+      <div className="flex gap-5 p-2 sm:px-8 sm:py-5 bg-l2 dark:bg-d2 flex-1 min-h-[0] rounded-md ">
         <Connections
           socket={socket}
           userId={user.id}
+          connectionId={connectionId}
           changeConnection={changeConnection}
+          className={!connectionId ? "" : "hidden"}
         />
         {connectionId && (
           <ChatBoard
             socket={socket}
             userId={user.id}
             connectionId={connectionId}
+            changeConnection={changeConnection}
           />
         )}
       </div>

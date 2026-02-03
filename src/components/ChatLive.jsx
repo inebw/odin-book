@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import useGetLiveChat from "../utils/useGetLiveChat";
 
 export default function ChatLive({ userId, connectionId, socket }) {
@@ -12,11 +13,31 @@ export default function ChatLive({ userId, connectionId, socket }) {
   if (error) return <p>{error.message}</p>;
 
   return (
-    <div>
+    <div className="p-2 flex w-full flex-col-reverse gap-3 mt-auto overflow-scroll h-full no-scrollbar ">
       {chats.map((chat) => (
         <div key={chat.id}>
-          <p>{chat.content}</p>
-          <p>{chat.timestamp}</p>
+          {chat.sender_id == userId && (
+            <div
+              className="rounded-2xl rounded-tl-none w-72 p-5 ml-auto bg-l4 dark:bg-d4 space-y-2"
+              key={chat.id}
+            >
+              <p>{chat.content}</p>
+              <p className="text-xs opacity-60">
+                {format(chat.timestamp, "PPp")}
+              </p>
+            </div>
+          )}
+          {chat.receiver_id == userId && (
+            <div
+              className="rounded-2xl rounded-br-none w-72 p-5 mr-auto bg-l5 dark:bg-d6 space-y-2"
+              key={chat.id}
+            >
+              <p>{chat.content}</p>
+              <p className="text-xs opacity-60">
+                {format(chat.timestamp, "PPp")}
+              </p>
+            </div>
+          )}
         </div>
       ))}
     </div>

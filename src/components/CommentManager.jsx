@@ -88,6 +88,7 @@ export default function CommentManager({
         className={showReplies ? "block" : "hidden"}
         key={comment.id}
         replies={comment.replies}
+        commentId={comment.id}
         postId={postId}
         socket={socket}
         userId={userId}
