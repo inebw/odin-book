@@ -19,7 +19,7 @@ export default function ProfileHeader({
       }
     >
       <img
-        className="size-8 rounded-full border-d1 dark:border-l1 border object-cover"
+        className="size-8 rounded-full object-cover"
         src={user.dp}
         alt="user-image"
       />

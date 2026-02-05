@@ -19,7 +19,7 @@ export default function Connections({
 
   return (
     <div
-      className={`${className} sm:block p-2 w-full sm:max-w-60 rounded-md bg-l3 dark:bg-d3 space-y-3`}
+      className={`${className} sm:block p-2 w-full sm:max-w-60 rounded-md bg-l3 dark:bg-d3 space-y-3 overflow-y-auto custom-scrollbar`}
     >
       <input
         onChange={(e) => setSearch(e.target.value)}

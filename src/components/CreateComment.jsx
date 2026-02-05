@@ -3,9 +3,16 @@ import SendIcon from "../assets/SendIcon";
 
 export default function CreateComment({ socket, postId, userId }) {
   const [content, setContent] = useState("");
+  const [error, setError] = useState(null);
+  const [placeholderText, setPlaceholderText] = useState("Comment here");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!content.trim()) {
+      setPlaceholderText("");
+      setError("Comment cannot be empty");
+      return;
+    }
     socket.emit("createComment", { postId, userId, content }, () => {
       socket.emit("getPost", postId);
       socket.emit("getComments", postId);
@@ -19,12 +26,14 @@ export default function CreateComment({ socket, postId, userId }) {
         className="w-full h-full bg-l3 dark:bg-d3 rounded-md"
         htmlFor="content"
       >
+        {error && <p className="absolute opacity-25 px-3 py-2">{error}</p>}
         <textarea
           className="resize-none w-full h-full px-3 py-2 bg-l3 dark:bg-d3 rounded-md "
           id="content"
-          placeholder="Comment here"
+          placeholder={placeholderText}
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          required
         ></textarea>
       </label>
       <button

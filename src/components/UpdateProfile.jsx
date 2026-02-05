@@ -27,7 +27,8 @@ export default function UpdateProfile({}) {
   const getFileLink = async () => {
     const formData = new FormData();
     formData.append("file", dpImg);
-    const response = await fetch(`${url}/register/uploadPicture/`, {
+    console.log("this is the new build");
+    const response = await fetch("/api/register/uploadPicture", {
       method: "POST",
       credentials: "include",
       body: formData,

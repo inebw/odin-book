@@ -29,7 +29,7 @@ export default function Register({}) {
   const getFileLink = async () => {
     const formData = new FormData();
     formData.append("file", dpImg);
-    console.log("hi");
+    console.log("this new build for register");
     const response = await fetch(`${url}/register/uploadPicture`, {
       method: "POST",
       credentials: "include",

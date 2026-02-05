@@ -9,9 +9,16 @@ export default function CreateReply({
   className,
 }) {
   const [content, setContent] = useState("");
+  const [error, setError] = useState(null);
+  const [placeholderText, setPlaceholderText] = useState("enter reply...");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!content.trim()) {
+      setError("Reply cannot be empty");
+      setPlaceholderText("");
+      return;
+    }
     socket.emit("createReply", { commentId, userId, content }, () => {
       socket.emit("getComments", postId);
     });
@@ -23,6 +30,7 @@ export default function CreateReply({
       method="POST"
       onSubmit={handleSubmit}
     >
+      {error && <p className="absolute opacity-25 px-3 py-2">{error}</p>}
       <label
         className="size-full bg-l3 dark:bg-d3 rounded-md"
         htmlFor="content"
@@ -30,9 +38,10 @@ export default function CreateReply({
         <textarea
           className="resize-none w-full h-full px-3 py-2 bg-l3 dark:bg-d3 rounded-md "
           id="content"
-          placeholder="enter reply..."
+          placeholder={placeholderText}
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          required
         ></textarea>
       </label>
       <button

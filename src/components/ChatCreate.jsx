@@ -7,7 +7,7 @@ export default function ChatCreate({ userId, connectionId, socket }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!content) {
+    if (!content.trim()) {
       setError("Cant send empty message");
       return;
     }
