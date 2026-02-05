@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import SendIcon from "../assets/SendIcon";
 import CreateIcon from "../assets/CreateIcon";
+import Loader from "./Loader";
 
 export default function CreatePost() {
   const [content, setContent] = useState("");
@@ -9,8 +10,8 @@ export default function CreatePost() {
   const [dpImg, setDpImg] = useState(null);
   const { url, user } = useOutletContext();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!user) navigate("/login");
@@ -49,10 +50,9 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-
-      let img_url = ""
+      let img_url = "";
       if (preview) img_url = await getFileLink();
       const response = await fetch(`${url}/post/${user.id}`, {
         method: "POST",
@@ -62,21 +62,20 @@ export default function CreatePost() {
         body: JSON.stringify({ content, img_url }),
         credentials: "include",
       });
-      if (!response.ok) throw new Error("Server Error")
+      if (!response.ok) throw new Error("Server Error");
 
-      const data = await response.json()
-      navigate(`/post/${data.id}`)
-
+      const data = await response.json();
+      navigate(`/post/${data.id}`);
     } catch (err) {
-      setError(err)
+      setError(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loader className={"create-post-loader"} />;
 
-  if (error) return <p>{error.message}</p>
+  if (error) return <p>{error.message}</p>;
 
   return (
     <div className="flex flex-col gap-5 p-2 sm:px-8 sm:py-5 bg-l2 dark:bg-d2 overflow-y-auto flex-1 rounded-md custom-scrollbar">
@@ -122,6 +121,7 @@ export default function CreatePost() {
             }
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            required
           ></textarea>
         </label>
         <button
@@ -129,7 +129,7 @@ export default function CreatePost() {
           type="submit"
         >
           <p className="text-sm font-bold">Post</p>
-          <SendIcon className={"size-4 fill-d1 dark:fill-l1"} />
+          <SendIcon className={"size-4 fill-d7 dark:fill-l1"} />
         </button>
       </form>
     </div>

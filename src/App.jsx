@@ -1,15 +1,18 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import useGetAuthUser from "./utils/useGetAuthUser";
 import { socket } from "./socket";
 import { useState } from "react";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
-const url = "http://localhost:3000";
+import Loader from "./components/Loader";
+// const url = "http://localhost:3000";
+const url = "/api";
 
 function App() {
   const [theme, setTheme] = useState("dark");
   const [refreshUser, setRefreshUser] = useState(0);
   const { user, loading, error } = useGetAuthUser(url, refreshUser, socket);
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "" : "dark"));
@@ -26,9 +29,17 @@ function App() {
     if (user) socket.emit("imOffline", user.id);
     response.json().then((res) => console.log(res));
     setRefreshUser((prev) => prev + 1);
+    navigate("/login");
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div
+        className={`${theme} flex flex-col gap-3 bg-l1 dark:bg-d1 text-d7 dark:text-l1 min-h-dvh max-h-dvh lg:px-[calc(25%-10rem)] lg:py-5`}
+      >
+        <Loader className={"app-loader"} />
+      </div>
+    );
 
   return (
     <div

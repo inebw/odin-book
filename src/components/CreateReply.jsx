@@ -40,7 +40,7 @@ export default function CreateReply({
         type="submit"
       >
         <p className="text-sm font-bold">Reply</p>
-        <SendIcon className={"size-4 fill-d1 dark:fill-l1"} />
+        <SendIcon className={"size-4 fill-d7 dark:fill-l1"} />
       </button>
     </form>
   );

@@ -4,12 +4,14 @@ export default function ProfileHeader({
   user,
   showOnline = false,
   className = null,
-  clickEnabled = null
+  clickEnabled = null,
 }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div
-      onClick={() => clickEnabled ? navigate(`/profile/${user.username}`) : null}
+      onClick={() =>
+        clickEnabled ? navigate(`/profile/${user.username}`) : null
+      }
       className={
         className
           ? className
@@ -17,15 +19,17 @@ export default function ProfileHeader({
       }
     >
       <img
-        className="size-8 rounded-full border-d1 dark:border-l1 border"
+        className="size-8 rounded-full border-d1 dark:border-l1 border object-cover"
         src={user.dp}
         alt="user-image"
       />
       <div>
-        <p className="font-bold text-sm">
+        <p className="font-bold text-sm truncate max-w-35 ">
           {user.first_name} {user.last_name}
         </p>
-        <p className="text-xs">{!showOnline && user.username}</p>
+        <p className="text-xs max-w-35 truncate">
+          {!showOnline && user.username}
+        </p>
         {showOnline && (
           <div className="flex gap-2 items-center">
             <p className="text-xs opacity-80">

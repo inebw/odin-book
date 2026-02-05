@@ -2,7 +2,6 @@ import { useState } from "react";
 import CommentIcon from "../assets/CommentIcon";
 import DislikeIcon from "../assets/DislikeIcon";
 import LikeIcon from "../assets/LikeIcon";
-import CreateReply from "./CreateReply";
 import Reply from "./Reply";
 
 export default function CommentManager({

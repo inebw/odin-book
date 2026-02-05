@@ -3,15 +3,26 @@ import SendIcon from "../assets/SendIcon";
 
 export default function ChatCreate({ userId, connectionId, socket }) {
   const [content, setContent] = useState("");
+  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!content) {
+      setError("Cant send empty message");
+      return;
+    }
     socket.emit("createChat", { connectionId, userId, content });
     setContent("");
   };
 
+  const handleChange = (e) => {
+    setContent(e.target.value);
+    setError(null);
+  };
+
   return (
     <form className="w-full relative" method="POST" onSubmit={handleSubmit}>
+      {error && <p className="absolute opacity-25 px-3 py-2">{error}</p>}
       <label
         className="w-full h-full bg-l2 dark:bg-d2 rounded-md"
         htmlFor="content"
@@ -20,7 +31,7 @@ export default function ChatCreate({ userId, connectionId, socket }) {
           className="resize-none w-full h-full px-3 py-2 bg-l2 dark:bg-d2 rounded-md "
           id="content"
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handleChange}
         ></textarea>
       </label>
       <button
@@ -28,7 +39,7 @@ export default function ChatCreate({ userId, connectionId, socket }) {
         type="submit"
       >
         <p className="text-sm font-bold">Send</p>
-        <SendIcon className={"size-4 fill-d1 dark:fill-l1"} />
+        <SendIcon className={"size-4 fill-d7 dark:fill-l1"} />
       </button>
     </form>
   );

@@ -44,8 +44,8 @@ export default function Nav({ user }) {
       }
     >
       <button
-        className={`${location.pathname === "/feed" ? "bg-yello" : "bg-l3 dark:bg-d3"} flex gap-3 items-center justify-center sm:justify-start cursor-pointer p-2 ${sidebarOn ? "px-5" : ""} sm:rounded-md font-bold w-full`}
-        onClick={() => navigate("feed")}
+        className={`${location.pathname === "/" ? "bg-yello" : "bg-l3 dark:bg-d3"} flex gap-3 items-center justify-center sm:justify-start cursor-pointer p-2 ${sidebarOn ? "px-5" : ""} sm:rounded-md font-bold w-full`}
+        onClick={() => navigate("/")}
       >
         <HomeIcon className={"size-6 fill-d7 dark:fill-l1"} />
         <p className={`${sidebarOn ? "sm:block" : ""} hidden`}>Home</p>

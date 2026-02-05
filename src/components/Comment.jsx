@@ -1,13 +1,12 @@
+import CommentSkeleton from "../skeleton/CommentSkeleton";
 import useGetComments from "../utils/useGetComments";
 import CommentManager from "./CommentManager";
-import CreateReply from "./CreateReply";
 import ProfileHeader from "./ProfileHeader";
-import Reply from "./Reply";
 
 export default function Comment({ postId, socket, userId }) {
   const { comments, error, loading } = useGetComments(postId, socket);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <CommentSkeleton />;
 
   if (error) return <p>{error.message}</p>;
 
@@ -18,7 +17,7 @@ export default function Comment({ postId, socket, userId }) {
           key={comment.id}
           className="shadow-lg dark:bg-d5 space-y-2 p-5 rounded-md"
         >
-          <ProfileHeader user={comment.user} />
+          <ProfileHeader user={comment.user} clickEnabled={true} />
           <p>{comment.content}</p>
           <CommentManager
             socket={socket}

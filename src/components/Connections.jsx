@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useGetLiveConnections from "../utils/useGetLiveConnections";
 import ProfileHeader from "./ProfileHeader";
+import ConnectionsSkeleton from "../skeleton/ConnectionsSkeleton";
 
 export default function Connections({
   userId,
@@ -12,7 +13,7 @@ export default function Connections({
   const { connections, loading, error } = useGetLiveConnections(socket, userId);
   const [search, setSearch] = useState("");
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <ConnectionsSkeleton />;
 
   if (error) return <p>{error.message}</p>;
 

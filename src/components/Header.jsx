@@ -8,7 +8,7 @@ export default function Header({ logoutHandler, user, toggleTheme, theme }) {
   return (
     <header className="flex justify-between items-center p-2 sm:p-3 lg:rounded-md bg-l2 dark:bg-d2 relative">
       <div
-        onClick={() => navigate("/feed")}
+        onClick={() => navigate("/")}
         className="flex gap-3 items-center justify-center select-none cursor-pointer"
         title="Home"
       >

@@ -41,7 +41,7 @@ export default function Post({
 
   return (
     <div className="shadow-lg dark:bg-d5 space-y-2 p-5 rounded-md">
-      <ProfileHeader user={post.user} />
+      <ProfileHeader user={post.user} clickEnabled={true} />
       <div
         className="cursor-pointer py-3"
         onClick={() => navigate(`/post/${post.id}`)}

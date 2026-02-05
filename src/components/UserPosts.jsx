@@ -14,7 +14,10 @@ export default function UserPosts() {
 
   return (
     user && (
-      <div className="border-d3 border rounded-md p-2 pb-18 sm:pb-28 lg:pb-40 space-y-3.5">
+      <div className="border-l3 dark:border-d3 border rounded-md p-2 pb-18 sm:pb-28 lg:pb-40 space-y-3.5">
+        <h1 className="font-bold p-2 ">
+          Posts by {profile.first_name} {profile.last_name}
+        </h1>
         {posts.map((post) => (
           <Post
             key={post.id}

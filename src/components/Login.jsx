@@ -15,7 +15,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate("/feed");
+    if (user) navigate("/");
   }, [user]);
 
   const handleChange = (e) => {

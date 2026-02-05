@@ -9,7 +9,6 @@ export default function useGetPosts(url, id = null, socket) {
     setLoading(true);
     const fetchposts = async () => {
       try {
-        console.log("hin");
         socket.emit("getPosts", id);
         socket.on("receivePosts", (data) => {
           setPosts(data);

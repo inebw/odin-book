@@ -2,6 +2,7 @@ import { useNavigate, useOutletContext } from "react-router";
 import Connections from "./Connections";
 import { useEffect, useState } from "react";
 import ChatBoard from "./ChatBoard";
+import notSelected from "./../assets/notSelected.png";
 
 export default function Chat() {
   const { user, socket } = useOutletContext();
@@ -33,6 +34,12 @@ export default function Chat() {
             connectionId={connectionId}
             changeConnection={changeConnection}
           />
+        )}
+        {!connectionId && (
+          <div className="hidden sm:flex h-full w-full  flex-col items-center justify-center">
+            <img src={notSelected} alt="" />
+            <p>Select someone to start chatting!</p>
+          </div>
         )}
       </div>
     )

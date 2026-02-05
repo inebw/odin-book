@@ -9,7 +9,6 @@ export default function useGetUserPosts(profileId, socket) {
     setLoading(true);
     const fetchposts = async () => {
       try {
-        console.log("hin");
         socket.emit("getUserPosts", profileId);
         socket.on("receiveUserPosts", (data) => {
           setPosts(data);

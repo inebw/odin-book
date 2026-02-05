@@ -1,5 +1,7 @@
 import { format } from "date-fns";
 import useGetLiveChat from "../utils/useGetLiveChat";
+import emptyChat from "./../assets/emptyChats.png";
+import ChatLiveSkeleton from "../skeleton/ChatLiveSkeleton";
 
 export default function ChatLive({ userId, connectionId, socket }) {
   const { chats, loading, error } = useGetLiveChat(
@@ -7,8 +9,9 @@ export default function ChatLive({ userId, connectionId, socket }) {
     connectionId,
     socket,
   );
+  const chatLenght = chats && chats.length;
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <ChatLiveSkeleton />;
 
   if (error) return <p>{error.message}</p>;
 
@@ -40,6 +43,12 @@ export default function ChatLive({ userId, connectionId, socket }) {
           )}
         </div>
       ))}
+      {chatLenght == 0 && (
+        <div className="h-full flex  flex-col items-center justify-center">
+          <img src={emptyChat} alt="" />
+          <p>No messages to show</p>
+        </div>
+      )}
     </div>
   );
 }

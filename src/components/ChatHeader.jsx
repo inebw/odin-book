@@ -1,11 +1,12 @@
 import BackIcon from "../assets/BackIcon";
+import ChatHeaderSkeleon from "../skeleton/ChatHeaderSkeleton";
 import useGetLiveUser from "../utils/useGetLiveUser";
 import ProfileHeader from "./ProfileHeader";
 
 export default function ChatHeader({ userId, socket, changeConnection }) {
   const { liveUser, loading, error } = useGetLiveUser(userId, socket);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <ChatHeaderSkeleon />;
 
   if (error) return <p>{error.message}</p>;
   return (

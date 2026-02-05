@@ -3,6 +3,7 @@ import useGetFullPost from "../utils/useGetFullPost";
 import Comment from "./Comment";
 import CreateComment from "./CreateComment";
 import Post from "./Post";
+import FullPostSkeleton from "../skeleton/FullPostSkeleton";
 
 export default function FullPost() {
   const { user, socket } = useOutletContext();
@@ -20,26 +21,12 @@ export default function FullPost() {
     });
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <FullPostSkeleton />;
 
   if (error) return <p>{error.messages}</p>;
 
   return (
     <div className="flex flex-col gap-5 p-2 sm:px-8 sm:py-5 bg-l2 dark:bg-d2 overflow-y-auto flex-1 rounded-md custom-scrollbar">
-      {/* <p> */}
-      {/*   {post.user.first_name} {post.user.last_name} */}
-      {/* </p> */}
-      {/* <p>{post.content}</p> */}
-      {/* <div> */}
-      {/*   <div> */}
-      {/*     <button onClick={() => likePost(post.id, id)}>Like</button> */}
-      {/*     <p>{post._count.likes}</p> */}
-      {/*   </div> */}
-      {/*   <div> */}
-      {/*     <button onClick={() => dislikePost(post.id, id)}>Dislike</button> */}
-      {/*     <p>{post._count.dislikes}</p> */}
-      {/*   </div> */}
-      {/* </div> */}
       <Post
         key={"post" + post.id}
         post={post}

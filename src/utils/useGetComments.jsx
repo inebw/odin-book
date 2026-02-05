@@ -11,7 +11,6 @@ export default function useGetComments(id, socket) {
         socket.emit("getComments", id);
         socket.on("receiveComments", (data) => {
           setComments(data);
-          console.log(data);
           setLoading(false);
         });
       } catch (err) {

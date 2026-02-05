@@ -32,7 +32,7 @@ export default function CreateComment({ socket, postId, userId }) {
         type="submit"
       >
         <p className="text-sm font-bold">Comment</p>
-        <SendIcon className={"size-4 fill-d1 dark:fill-l1"} />
+        <SendIcon className={"size-4 fill-d7 dark:fill-l1"} />
       </button>
     </form>
   );

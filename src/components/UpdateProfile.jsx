@@ -2,28 +2,26 @@ import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import thumbnail from "./../assets/thumbnail.png";
 import Errors from "./Errors";
-import SuccessRegister from "./SucessRegister";
 import Loader from "./Loader";
+import SuccessUpdate from "./SuccessUpdate";
 
-export default function Register({}) {
+export default function UpdateProfile({}) {
+  const { url, user, setRefreshUser } = useOutletContext();
   const initialValue = {
-    first_name: "",
-    last_name: "",
-    username: "",
-    password: "",
-    confirm_password: "",
+    first_name: user.first_name,
+    last_name: user.last_name,
+    username: user.username,
   };
   const [formData, setFormData] = useState(initialValue);
   const [dpImg, setDpImg] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState(user.dp);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
-  const { url, user } = useOutletContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate("/");
+    if (!user) navigate("/register");
   }, [user]);
 
   const getFileLink = async () => {
@@ -68,7 +66,7 @@ export default function Register({}) {
     e.preventDefault();
     setLoading(true);
     const dp = await getFileLink();
-    const response = await fetch(`${url}/register`, {
+    const response = await fetch(`${url}/user/update/${user.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,13 +81,14 @@ export default function Register({}) {
     } else {
       const sucessMsg = await response.json();
       setSuccess(sucessMsg);
+      setRefreshUser((prev) => prev + 1);
     }
     setLoading(false);
   };
 
   if (loading) return <Loader className={"register-loader"} />;
 
-  if (success) return <SuccessRegister success={success} />;
+  if (success) return <SuccessUpdate success={success} />;
 
   return (
     <form
@@ -123,6 +122,7 @@ export default function Register({}) {
         />
       </div>
       <label htmlFor="first_name">
+        <p>First Name</p>
         <input
           className="bg-l3 dark:bg-d3 py-1 px-3 rounded-md focus:outline-1 focus:outline-d2 focus:dark:outline-l2"
           id="first_name"
@@ -130,11 +130,11 @@ export default function Register({}) {
           name="first_name"
           value={formData.first_name}
           onChange={handleChange}
-          placeholder="First Name"
           required
         />
       </label>
       <label htmlFor="last_name">
+        <p>Last Name</p>
         <input
           className="bg-l3 dark:bg-d3 py-1 px-3 rounded-md focus:outline-1 focus:outline-d2 focus:dark:outline-l2"
           id="last_name"
@@ -142,11 +142,11 @@ export default function Register({}) {
           name="last_name"
           value={formData.last_name}
           onChange={handleChange}
-          placeholder="Last Name"
           required
         />
       </label>
       <label htmlFor="username">
+        <p>Username</p>
         <input
           className="bg-l3 dark:bg-d3 py-1 px-3 rounded-md focus:outline-1 focus:outline-d2 focus:dark:outline-l2"
           id="username"
@@ -154,41 +154,17 @@ export default function Register({}) {
           name="username"
           value={formData.username}
           onChange={handleChange}
-          placeholder="Username"
           required
         />
       </label>
-      <label htmlFor="password">
-        <input
-          className="bg-l3 dark:bg-d3 py-1 px-3 rounded-md focus:outline-1 focus:outline-d2 focus:dark:outline-l2"
-          id="password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-          required
-        />
-      </label>
-      <label htmlFor="confirm_password">
-        <input
-          className="bg-l3 dark:bg-d3 py-1 px-3 rounded-md focus:outline-1 focus:outline-d2 focus:dark:outline-l2"
-          id="confirm_password"
-          type="password"
-          name="confirm_password"
-          value={formData.confirm_password}
-          onChange={handleChange}
-          placeholder="Confirm Password"
-          required
-        />
-      </label>
+
       {error && <Errors error={error} />}
       <button
         type="submit"
         className="w-min bg-green font-bold px-5 py-2 rounded-md cursor-pointer active:translate-y-0.5"
       >
         {" "}
-        Register
+        Update
       </button>
     </form>
   );
