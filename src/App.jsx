@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router";
 import useGetAuthUser from "./utils/useGetAuthUser";
 import { socket } from "./socket";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Loader from "./components/Loader";
@@ -14,8 +14,19 @@ function App() {
   const { user, loading, error } = useGetAuthUser(url, refreshUser, socket);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const currTheme = window.localStorage.getItem("theme");
+    if (currTheme && currTheme === "light") setTheme("light");
+  }, []);
+
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "" : "dark"));
+    if (theme === "light") {
+      setTheme("dark");
+      window.localStorage.setItem("theme", "dark");
+    } else {
+      setTheme("light");
+      window.localStorage.setItem("theme", "light");
+    }
   };
 
   const logout = async () => {
