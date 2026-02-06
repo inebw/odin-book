@@ -24,23 +24,29 @@ export default function CreateReply({
     });
     setContent("");
   };
+
+  const handleChange = (e) => {
+    setContent(e.target.value);
+    setError(null);
+  };
+
   return (
     <form
       className={`${className} relative w-[calc(100%-20px)] sm:w-72 h-24`}
       method="POST"
       onSubmit={handleSubmit}
     >
-      {error && <p className="absolute opacity-25 px-3 py-2">{error}</p>}
       <label
         className="size-full bg-l3 dark:bg-d3 rounded-md"
-        htmlFor="content"
+        htmlFor={`${commentId}-reply`}
       >
+        {error && <p className="absolute opacity-25 px-3 py-2">{error}</p>}
         <textarea
           className="resize-none w-full h-full px-3 py-2 bg-l3 dark:bg-d3 rounded-md "
-          id="content"
+          id={`${commentId}-reply`}
           placeholder={placeholderText}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handleChange}
           required
         ></textarea>
       </label>

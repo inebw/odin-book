@@ -22,11 +22,11 @@ export default function ChatCreate({ userId, connectionId, socket }) {
 
   return (
     <form className="w-full relative" method="POST" onSubmit={handleSubmit}>
-      {error && <p className="absolute opacity-25 px-3 py-2">{error}</p>}
       <label
         className="w-full h-full bg-l2 dark:bg-d2 rounded-md"
         htmlFor="content"
       >
+        {error && <p className="absolute opacity-25 px-3 py-2">{error}</p>}
         <textarea
           className="resize-none w-full h-full px-3 py-2 bg-l2 dark:bg-d2 rounded-md "
           id="content"

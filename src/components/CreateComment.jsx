@@ -19,6 +19,10 @@ export default function CreateComment({ socket, postId, userId }) {
     });
     setContent("");
   };
+  const handleChange = (e) => {
+    setContent(e.target.value);
+    setError(null);
+  };
 
   return (
     <form className="w-full relative" method="POST" onSubmit={handleSubmit}>
@@ -32,7 +36,7 @@ export default function CreateComment({ socket, postId, userId }) {
           id="content"
           placeholder={placeholderText}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handleChange}
           required
         ></textarea>
       </label>
